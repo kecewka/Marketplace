@@ -19,6 +19,9 @@ public class Product {
     private double price;
 
     @ManyToMany
+    @JoinTable(name = "product_shop"
+            , joinColumns = @JoinColumn(name = "product_id")
+            , inverseJoinColumns = @JoinColumn(name = "shop_id"))
     private List<Shop> availableShopsList;
 
     public Product() {

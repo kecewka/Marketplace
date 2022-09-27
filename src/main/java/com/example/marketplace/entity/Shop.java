@@ -17,6 +17,9 @@ public class Shop {
     private String address;
 
     @ManyToMany
+    @JoinTable(name = "product_shop"
+            , joinColumns = @JoinColumn(name = "shop_id")
+            , inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productList;
 
     public Shop(){}

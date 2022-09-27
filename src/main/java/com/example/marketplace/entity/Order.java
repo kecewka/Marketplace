@@ -3,7 +3,6 @@ package com.example.marketplace.entity;
 import com.example.marketplace.enums.Statuses;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,14 +19,32 @@ public class Order {
     private List<Product> productList;
     @ManyToOne
     private User user;
+    @Column
+    private LocalDateTime orderTime;
 
     public Order(){}
+
+    public Order(int id, Statuses status, List<Product> productList, User user, LocalDateTime orderTime) {
+        this.id = id;
+        this.status = status;
+        this.productList = productList;
+        this.user = user;
+        this.orderTime = orderTime;
+    }
 
     public Order(int id, Statuses status, List<Product> productList, User user) {
         this.id = id;
         this.status = status;
         this.productList = productList;
         this.user = user;
+    }
+
+    public LocalDateTime getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(LocalDateTime orderTime) {
+        this.orderTime = orderTime;
     }
 
     public int getId() {
