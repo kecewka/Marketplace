@@ -1,8 +1,9 @@
 package com.example.marketplace.enums;
 
-public enum Statuses {
+public enum OrderStatus {
     CREATED,
-    PROCESSING,
+    PAID,
+    VERIFIED,
     COMPLETED,
     CANCELLED;
 }

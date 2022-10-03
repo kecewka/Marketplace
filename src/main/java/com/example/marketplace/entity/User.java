@@ -1,9 +1,9 @@
 package com.example.marketplace.entity;
-import com.example.marketplace.enums.Roles;
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,19 +13,23 @@ public class User {
     private String username;
     @Column
     private String password;
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Roles role;
+
+    @ManyToMany
+    @JoinTable(name = "user_role"
+            ,joinColumns = @JoinColumn(name = "user_id")
+            ,inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Roles> rolesList;
+
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
     public User(){}
 
-    public User(int id, String username, String password, Roles role, List<Order> orderList) {
+    public User(int id, String username, String password, List<Roles> role, List<Order> orderList) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.rolesList = role;
         this.orderList = orderList;
     }
 
@@ -53,12 +57,12 @@ public class User {
         this.password = password;
     }
 
-    public Roles getRole() {
-        return role;
+    public List<Roles> getRole() {
+        return rolesList;
     }
 
-    public void setRole(Roles role) {
-        this.role = role;
+    public void setRole(List<Roles> role) {
+        this.rolesList = role;
     }
 
     public List<Order> getOrderList() {
@@ -75,7 +79,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", rolesList=" + rolesList +
                 ", orderList=" + orderList +
                 '}';
     }

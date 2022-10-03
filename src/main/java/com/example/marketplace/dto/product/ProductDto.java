@@ -1,33 +1,14 @@
-package com.example.marketplace.entity;
+package com.example.marketplace.dto.product;
 
-import javax.persistence.*;
-import java.util.List;
-
-
-@Entity
-@Table(name = "products")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+public class ProductDto {
     private int id;
-    @Column(name = "product_name")
     private String name;
-    @Column
     private String category;
-    @Column
     private double price;
 
-    @ManyToMany
-    @JoinTable(name = "product_shop"
-            , joinColumns = @JoinColumn(name = "product_id")
-            , inverseJoinColumns = @JoinColumn(name = "shop_id"))
-    private List<Shop> availableShopsList;
+    public ProductDto(){}
 
-    public Product() {
-    }
-
-    public Product(int id, String name, String category, double price) {
+    public ProductDto(int id, String name, String category, double price) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -68,7 +49,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +

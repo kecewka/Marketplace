@@ -1,42 +1,44 @@
 package com.example.marketplace.entity;
 
-import com.example.marketplace.enums.Statuses;
-
+import com.example.marketplace.enums.OrderStatus;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
     @Enumerated(EnumType.STRING)
-    @Column
-    private Statuses status;
+    @Column(name = "order_status")
+    private OrderStatus status;
     @ManyToMany
+    @JoinTable(name = "order_product"
+            ,joinColumns = @JoinColumn(name = "order_id")
+            ,inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productList;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    @Column
+    @Column(name = "ordered_at")
     private LocalDateTime orderTime;
+
+    @OneToOne
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    private Payment payment;
 
     public Order(){}
 
-    public Order(int id, Statuses status, List<Product> productList, User user, LocalDateTime orderTime) {
+    public Order(int id, OrderStatus status, List<Product> productList, User user, LocalDateTime orderTime, Payment payment) {
         this.id = id;
         this.status = status;
         this.productList = productList;
         this.user = user;
         this.orderTime = orderTime;
-    }
-
-    public Order(int id, Statuses status, List<Product> productList, User user) {
-        this.id = id;
-        this.status = status;
-        this.productList = productList;
-        this.user = user;
+        this.payment = payment;
     }
 
     public LocalDateTime getOrderTime() {
@@ -55,11 +57,11 @@ public class Order {
         this.id = id;
     }
 
-    public Statuses getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Statuses status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -79,6 +81,14 @@ public class Order {
         this.user = user;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -86,6 +96,8 @@ public class Order {
                 ", status=" + status +
                 ", productList=" + productList +
                 ", user=" + user +
+                ", orderTime=" + orderTime +
+                ", payment=" + payment +
                 '}';
     }
 }
