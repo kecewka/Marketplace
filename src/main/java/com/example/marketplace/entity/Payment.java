@@ -13,28 +13,36 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-    @Enumerated(EnumType.STRING)
     @Column
+    private double amount;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_type")
     private PaymentType paymentType;
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
-    @Column
+    @Column(name = "payment_time")
     private LocalDateTime paymentTime;
 
+
     @OneToOne(mappedBy = "payment")
+//    @JoinTable(name = "order_payment"
+//            ,joinColumns = @JoinColumn(name = "payment_id")
+//            ,inverseJoinColumns = @JoinColumn(name = "order_id"))
     private Order order;
 
 
     public Payment(){}
 
-    public Payment(int id, PaymentType paymentType, PaymentStatus paymentStatus, LocalDateTime paymentTime, Order order) {
+    public Payment(int id, double amount, PaymentType paymentType, PaymentStatus paymentStatus, LocalDateTime paymentTime, Order order) {
         this.id = id;
+        this.amount = amount;
         this.paymentType = paymentType;
         this.paymentStatus = paymentStatus;
         this.paymentTime = paymentTime;
         this.order = order;
     }
+
 
     public int getId() {
         return id;

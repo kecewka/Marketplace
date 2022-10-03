@@ -23,14 +23,21 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
+    @ManyToMany
+    @JoinTable(name = "user_address"
+            ,joinColumns = @JoinColumn(name = "user_id")
+            ,inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Address> addressList;
+
     public User(){}
 
-    public User(int id, String username, String password, List<Roles> role, List<Order> orderList) {
+    public User(int id, String username, String password, List<Roles> rolesList, List<Order> orderList, List<Address> addressList) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.rolesList = role;
+        this.rolesList = rolesList;
         this.orderList = orderList;
+        this.addressList = addressList;
     }
 
     public int getId() {
@@ -73,6 +80,22 @@ public class User {
         this.orderList = orderList;
     }
 
+    public List<Roles> getRolesList() {
+        return rolesList;
+    }
+
+    public void setRolesList(List<Roles> rolesList) {
+        this.rolesList = rolesList;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -81,6 +104,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", rolesList=" + rolesList +
                 ", orderList=" + orderList +
+                ", addressList=" + addressList +
                 '}';
     }
 }

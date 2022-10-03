@@ -27,7 +27,9 @@ public class Order {
     private LocalDateTime orderTime;
 
     @OneToOne
-    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    @JoinTable(name = "order_payment"
+            ,joinColumns = @JoinColumn(name = "order_id")
+            ,inverseJoinColumns = @JoinColumn(name = "payment_id"))
     private Payment payment;
 
     public Order(){}
