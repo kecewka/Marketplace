@@ -32,6 +32,8 @@ public class Order {
             ,inverseJoinColumns = @JoinColumn(name = "payment_id"))
     private Payment payment;
 
+
+
     public Order(){}
 
     public Order(int id, OrderStatus status, List<Product> productList, User user, LocalDateTime orderTime, Payment payment) {

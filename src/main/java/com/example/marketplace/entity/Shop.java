@@ -11,17 +11,14 @@ public class Shop {
     @Column
     private int id;
 
-    @Column
+    @Column(name = "shop_name")
     private String name;
 
     @Column
     private String address;
 
-    @ManyToMany
-    @JoinTable(name = "product_shop"
-            , joinColumns = @JoinColumn(name = "shop_id")
-            , inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> productList;
+    @OneToMany(mappedBy = "shop")
+    private List<ProductShop> productList;
 
     public Shop(){}
 

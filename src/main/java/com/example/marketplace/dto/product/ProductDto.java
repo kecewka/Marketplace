@@ -1,14 +1,18 @@
 package com.example.marketplace.dto.product;
 
+import com.example.marketplace.entity.Category;
+
+import java.util.List;
+
 public class ProductDto {
     private int id;
     private String name;
-    private String category;
+    private List<Category> category;
     private double price;
 
     public ProductDto(){}
 
-    public ProductDto(int id, String name, String category, double price) {
+    public ProductDto(int id, String name, List<Category> category, double price) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -31,11 +35,11 @@ public class ProductDto {
         this.name = name;
     }
 
-    public String getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
 

@@ -1,4 +1,4 @@
-package com.example.marketplace.service;
+package com.example.marketplace.service.product;
 
 import com.example.marketplace.entity.Product;
 
@@ -9,4 +9,5 @@ public interface ProductService {
     Product getProductById(int id);
     void saveProduct(Product product);
     void deleteProduct(int id);
+
 }

@@ -10,7 +10,7 @@ public class City {
     private int id;
     @Column
     private String name;
-    @Column(name = "code")
+    @Column
     private String code;
 
     public City(){}

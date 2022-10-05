@@ -1,4 +1,4 @@
-package com.example.marketplace.service;
+package com.example.marketplace.service.product;
 
 import com.example.marketplace.dao.ProductRepository;
 import com.example.marketplace.entity.Product;

@@ -1,4 +1,4 @@
-package com.example.marketplace.mapper;
+package com.example.marketplace.mapper.product;
 
 import com.example.marketplace.dto.product.ProductDto;
 import com.example.marketplace.dto.product.ProductPostDto;

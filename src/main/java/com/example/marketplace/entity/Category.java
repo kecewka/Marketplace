@@ -1,16 +1,22 @@
-package com.example.marketplace.dto.product;
+package com.example.marketplace.entity;
 
-public class ProductSlimDto {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "categories")
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
+    @Column(name = "category_name")
     private String name;
 
-    private double price;
+    public Category(){}
 
-    public ProductSlimDto(){}
-    public ProductSlimDto(int id, String name, double price) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
-        this.price = price;
     }
 
     public int getId() {
@@ -29,16 +35,11 @@ public class ProductSlimDto {
         this.name = name;
     }
 
-    public double getPrice() { return price; }
-
-    public void setPrice(double price) { this.price = price; }
-
     @Override
     public String toString() {
-        return "ProductSlimDto{" +
+        return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price='" + price + '\'' +
                 '}';
     }
 }

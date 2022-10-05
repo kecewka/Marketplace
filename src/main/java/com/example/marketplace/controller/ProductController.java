@@ -3,9 +3,9 @@ package com.example.marketplace.controller;
 import com.example.marketplace.dto.product.ProductDto;
 import com.example.marketplace.dto.product.ProductPostDto;
 import com.example.marketplace.entity.Product;
-import com.example.marketplace.mapper.ProductListMapper;
-import com.example.marketplace.mapper.ProductMapper;
-import com.example.marketplace.service.ProductService;
+import com.example.marketplace.mapper.product.ProductListMapper;
+import com.example.marketplace.mapper.product.ProductMapper;
+import com.example.marketplace.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

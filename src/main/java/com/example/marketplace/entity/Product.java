@@ -13,24 +13,25 @@ public class Product {
     private int id;
     @Column(name = "product_name")
     private String name;
-    @Column
-    private String category;
+    @ManyToMany
+    @JoinTable(name = "product_category"
+            ,joinColumns = @JoinColumn(name = "product_id")
+            ,inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
     @Column
     private double price;
 
-    @ManyToMany
-    @JoinTable(name = "product_shop"
-            , joinColumns = @JoinColumn(name = "product_id")
-            , inverseJoinColumns = @JoinColumn(name = "shop_id"))
-    private List<Shop> availableShopsList;
+    @OneToMany(mappedBy = "product")
+    private List<ProductShop> availableShopsList;
+
 
     public Product() {
     }
 
-    public Product(int id, String name, String category, double price) {
+    public Product(int id, String name, List<Category> categories, double price) {
         this.id = id;
         this.name = name;
-        this.category = category;
+        this.categories = categories;
         this.price = price;
     }
 
@@ -50,12 +51,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getCategory() {
-        return category;
+    public List<Category> getCategory() {
+        return categories;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(List<Category> categories) {
+        this.categories = categories;
     }
 
     public double getPrice() {
@@ -71,7 +72,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
+                ", categories='" + categories + '\'' +
                 ", price=" + price +
                 '}';
     }
