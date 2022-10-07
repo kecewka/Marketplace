@@ -1,5 +1,6 @@
 package com.example.marketplace.dto.order;
 
+import com.example.marketplace.dto.payment.PaymentSlimDto;
 import com.example.marketplace.dto.product.ProductSlimDto;
 import com.example.marketplace.dto.user.UserSlimDto;
 import com.example.marketplace.enums.OrderStatus;
@@ -14,14 +15,18 @@ public class OrderDto {
     private UserSlimDto user;
     private LocalDateTime orderTime;
 
+    private PaymentSlimDto payment;
+
+
     public OrderDto(){}
 
-    public OrderDto(int id, OrderStatus status, List<ProductSlimDto> productList, UserSlimDto user, LocalDateTime orderTime) {
+    public OrderDto(int id, OrderStatus status, List<ProductSlimDto> productList, UserSlimDto user, LocalDateTime orderTime, PaymentSlimDto payment) {
         this.id = id;
         this.status = status;
         this.productList = productList;
         this.user = user;
         this.orderTime = orderTime;
+        this.payment = payment;
     }
 
     public int getId() {
@@ -64,6 +69,14 @@ public class OrderDto {
         this.orderTime = orderTime;
     }
 
+    public PaymentSlimDto getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentSlimDto payment) {
+        this.payment = payment;
+    }
+
     @Override
     public String toString() {
         return "OrderDto{" +
@@ -72,6 +85,7 @@ public class OrderDto {
                 ", productList=" + productList +
                 ", user=" + user +
                 ", orderTime=" + orderTime +
+                ", payment=" + payment +
                 '}';
     }
 }

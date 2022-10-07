@@ -1,11 +1,15 @@
 package com.example.marketplace.entity;
 
 import com.example.marketplace.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "orders")
 public class Order {
     @Id
@@ -15,7 +19,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     private OrderStatus status;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "order_product"
             ,joinColumns = @JoinColumn(name = "order_id")
             ,inverseJoinColumns = @JoinColumn(name = "product_id"))
@@ -28,21 +32,26 @@ public class Order {
 
     @OneToOne
     @JoinTable(name = "order_payment"
-            ,joinColumns = @JoinColumn(name = "order_id")
-            ,inverseJoinColumns = @JoinColumn(name = "payment_id"))
+            ,joinColumns = @JoinColumn(name = "order_id",referencedColumnName = "id")
+            ,inverseJoinColumns = @JoinColumn(name = "payment_id", referencedColumnName = "id"))
     private Payment payment;
+
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
 
 
 
     public Order(){}
 
-    public Order(int id, OrderStatus status, List<Product> productList, User user, LocalDateTime orderTime, Payment payment) {
+    public Order(int id, OrderStatus status, List<Product> productList, User user, LocalDateTime orderTime, Payment payment, Shop shop) {
         this.id = id;
         this.status = status;
         this.productList = productList;
         this.user = user;
         this.orderTime = orderTime;
         this.payment = payment;
+        this.shop = shop;
     }
 
     public LocalDateTime getOrderTime() {
@@ -93,6 +102,14 @@ public class Order {
         this.payment = payment;
     }
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -102,6 +119,7 @@ public class Order {
                 ", user=" + user +
                 ", orderTime=" + orderTime +
                 ", payment=" + payment +
+                ", shop=" + shop +
                 '}';
     }
 }

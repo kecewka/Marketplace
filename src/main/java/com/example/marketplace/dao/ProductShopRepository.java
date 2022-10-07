@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ProductShopRepository extends JpaRepository<ProductShop, Integer> {
     @Query(value = "SELECT p from ProductShop p  where p.shop.id = :id and p.amount > 0")
-    public List<ProductShop> findAllProductsOfShop(int id);
+    List<ProductShop> findAllProductsOfShop(int id);
 }

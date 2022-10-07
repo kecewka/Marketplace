@@ -1,11 +1,15 @@
 package com.example.marketplace.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
 @Table(name = "products")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +17,7 @@ public class Product {
     private int id;
     @Column(name = "product_name")
     private String name;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "product_category"
             ,joinColumns = @JoinColumn(name = "product_id")
             ,inverseJoinColumns = @JoinColumn(name = "category_id"))

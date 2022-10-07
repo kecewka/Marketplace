@@ -2,12 +2,15 @@ package com.example.marketplace.entity;
 
 import com.example.marketplace.enums.PaymentStatus;
 import com.example.marketplace.enums.PaymentType;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payments")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +29,6 @@ public class Payment {
 
 
     @OneToOne(mappedBy = "payment")
-//    @JoinTable(name = "order_payment"
-//            ,joinColumns = @JoinColumn(name = "payment_id")
-//            ,inverseJoinColumns = @JoinColumn(name = "order_id"))
     private Order order;
 
 

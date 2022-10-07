@@ -15,4 +15,5 @@ public interface ProductMapper {
     ProductDto productToDto(Product product);
     ProductSlimDto productToSlimDto(Product product);
     Product dtoToProduct(ProductPostDto dto);
+
 }

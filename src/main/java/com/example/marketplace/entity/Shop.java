@@ -1,10 +1,14 @@
 package com.example.marketplace.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "shops")
+@Table(name = "shops")@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

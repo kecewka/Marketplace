@@ -1,6 +1,5 @@
 package com.example.marketplace.dto.order;
 
-
 import com.example.marketplace.enums.OrderStatus;
 
 import java.time.LocalDateTime;
@@ -12,15 +11,26 @@ public class OrderPostDto {
     private int userId;
     private LocalDateTime orderTime;
     private List<Integer> productIds;
+    private int shopId;
 
     public OrderPostDto(){}
 
-    public OrderPostDto(int id, OrderStatus status, int userId, LocalDateTime orderTime, List<Integer> productIds) {
+//    public OrderPostDto(int id, OrderStatus status, int userId, LocalDateTime orderTime, List<Integer> productIds, int shop) {
+//        this.id = id;
+//        this.status = OrderStatus.CREATED;
+//        this.userId = userId;
+//        this.orderTime = LocalDateTime.now();
+//        this.productIds = productIds;
+//        this.shopId = shop;
+//    }
+
+    public OrderPostDto(int id, int userId, List<Integer> productIds, int shop){
         this.id = id;
-        this.status = status;
         this.userId = userId;
-        this.orderTime = orderTime;
         this.productIds = productIds;
+        this.shopId = shop;
+        this.status = OrderStatus.CREATED;
+        this.orderTime = LocalDateTime.now();
     }
 
     public int getId() {
@@ -63,6 +73,14 @@ public class OrderPostDto {
         this.productIds = productIds;
     }
 
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
     @Override
     public String toString() {
         return "OrderPostDto{" +
@@ -71,6 +89,7 @@ public class OrderPostDto {
                 ", userId=" + userId +
                 ", orderTime=" + orderTime +
                 ", productIds=" + productIds +
+                ", shopId=" + shopId +
                 '}';
     }
 
