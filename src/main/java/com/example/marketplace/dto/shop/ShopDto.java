@@ -1,36 +1,22 @@
-package com.example.marketplace.entity;
+package com.example.marketplace.dto.shop;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.example.marketplace.dto.productshop.ProductShopDto;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "shops")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
-public class Shop {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+public class ShopDto {
     private int id;
-
-    @Column(name = "shop_name")
     private String name;
-
-    @Column
     private String address;
+    private List<ProductShopDto> proudctList;
 
-    @OneToMany(mappedBy = "shop")
-    private List<ProductShop> productList;
+    public ShopDto(){}
 
-    public Shop(){}
-
-    public Shop(int id, String name, String address) {
+    public ShopDto(int id, String name, String address, List<ProductShopDto> proudctList) {
         this.id = id;
         this.name = name;
         this.address = address;
+        this.proudctList = proudctList;
     }
 
     public int getId() {
@@ -57,12 +43,21 @@ public class Shop {
         this.address = address;
     }
 
+    public List<ProductShopDto> getProudctList() {
+        return proudctList;
+    }
+
+    public void setProudctList(List<ProductShopDto> proudctList) {
+        this.proudctList = proudctList;
+    }
+
     @Override
     public String toString() {
-        return "Shop{" +
+        return "ShopDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
+                ", proudctList=" + proudctList +
                 '}';
     }
 }

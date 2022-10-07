@@ -8,6 +8,7 @@ import com.example.marketplace.entity.Product;
 import com.example.marketplace.enums.PaymentStatus;
 import com.example.marketplace.service.payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
     public void saveOrder(Order order) {
         double amount = calculateAmount(order);
         Payment payment = new Payment(0, amount, null, PaymentStatus.NOT_APPROVED, null, null);
-        paymentService.savePayment(payment);
+        order.setPayment(payment);
         orderRepository.save(order);
     }
 
@@ -52,6 +53,17 @@ public class OrderServiceImpl implements OrderService {
     public Order cancelOrder(int id) {
         orderRepository.cancelOrder(id);
         return getOrderById(id);
+    }
+
+    @Override
+    public List<Order> findOrdersOfShop(int id) {
+        return orderRepository.findOrdersOfShop(id);
+    }
+
+    @Override
+    public Order approveOrder(int shopId, int orderId) {
+        orderRepository.approveOrder(shopId, orderId);
+        return getOrderById(orderId);
     }
 
     private double calculateAmount(Order order){

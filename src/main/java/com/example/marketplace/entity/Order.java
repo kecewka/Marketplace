@@ -30,7 +30,7 @@ public class Order {
     @Column(name = "ordered_at")
     private LocalDateTime orderTime;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "order_payment"
             ,joinColumns = @JoinColumn(name = "order_id",referencedColumnName = "id")
             ,inverseJoinColumns = @JoinColumn(name = "payment_id", referencedColumnName = "id"))

@@ -2,6 +2,7 @@ package com.example.marketplace.mapper.order;
 
 import com.example.marketplace.dto.order.OrderDto;
 import com.example.marketplace.dto.order.OrderPostDto;
+import com.example.marketplace.dto.order.OrderSlimDto;
 import com.example.marketplace.entity.Order;
 import com.example.marketplace.entity.Product;
 import com.example.marketplace.service.product.ProductService;
@@ -41,4 +42,6 @@ public abstract class OrderMapper {
 
         return list1;
     }
+
+    public abstract OrderSlimDto orderToSlimDto(Order order);
 }
