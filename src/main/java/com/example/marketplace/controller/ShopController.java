@@ -3,6 +3,7 @@ package com.example.marketplace.controller;
 import com.example.marketplace.dto.order.OrderDto;
 import com.example.marketplace.dto.shop.ShopDto;
 import com.example.marketplace.entity.Order;
+import com.example.marketplace.enums.OrderStatus;
 import com.example.marketplace.mapper.order.OrderListMapper;
 import com.example.marketplace.mapper.order.OrderMapper;
 import com.example.marketplace.mapper.shop.ShopListMapper;
@@ -49,8 +50,11 @@ public class ShopController {
         return orderListMapper.toDtoList(orderService.findOrdersOfShop(id));
     }
 
-    @PostMapping("/shops/{id}/orders")
-    public OrderDto approveOrder(@PathVariable int id, @RequestBody Order order){
-        return orderMapper.orderToDto(orderService.approveOrder(id, order.getId()));
+    @PostMapping("/shops/{id}/orders/{orderId}")
+    public OrderDto changeOrderStatus(@PathVariable int id, @PathVariable int orderId, @RequestParam("status") OrderStatus status){
+        return orderMapper.orderToDto(orderService.changeOrderStatus(orderId, status));
+
+        //sms service usage
     }
+
 }

@@ -8,7 +8,9 @@ import com.example.marketplace.mapper.order.OrderMapper;
 import com.example.marketplace.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,7 @@ public class OrderController {
         this.orderService = orderService;
         this.orderMapper = orderMapper;
         this.orderListMapper = orderListMapper;
+
     }
 
     @GetMapping("/orders")
@@ -48,6 +51,10 @@ public class OrderController {
         return orderMapper.orderToDto(orderService.cancelOrder(id));
     }
 
-
+    @PostMapping("/orders/{id}")
+    public ModelAndView payOrder(HttpServletRequest request, @RequestParam double amount) {
+        request.setAttribute("amount", amount);
+        return new ModelAndView("/checkout");
+    }
 
 }

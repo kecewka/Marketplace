@@ -5,6 +5,7 @@ import com.example.marketplace.dao.OrderRepository;
 import com.example.marketplace.entity.Order;
 import com.example.marketplace.entity.Payment;
 import com.example.marketplace.entity.Product;
+import com.example.marketplace.enums.OrderStatus;
 import com.example.marketplace.enums.PaymentStatus;
 import com.example.marketplace.service.payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,12 @@ public class OrderServiceImpl implements OrderService {
         return getOrderById(orderId);
     }
 
+    @Override
+    public Order changeOrderStatus(int orderId, OrderStatus status) {
+        orderRepository.changeOrderStatus(orderId, status);
+        return getOrderById(orderId);
+    }
+
     private double calculateAmount(Order order){
         double amount = 0;
         for (Product p : order.getProductList()){
@@ -73,4 +80,5 @@ public class OrderServiceImpl implements OrderService {
         }
         return amount;
     }
+
 }

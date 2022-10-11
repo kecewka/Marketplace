@@ -30,4 +30,6 @@ public class ProductShopController {
     public List<ProductShopDto> getAllProductsAllProductsOfShop(@PathVariable int id) {
         return productShopListMapper.toDtoList(productShopService.getAllProductsAllProductsOfShop(id));
     }
+
+
 }
