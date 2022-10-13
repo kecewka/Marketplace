@@ -51,10 +51,11 @@ public class OrderController {
         return orderMapper.orderToDto(orderService.cancelOrder(id));
     }
 
-    @PostMapping("/orders/{id}")
-    public ModelAndView payOrder(HttpServletRequest request, @RequestParam double amount) {
-        request.setAttribute("amount", amount);
-        return new ModelAndView("/checkout");
-    }
+//    @GetMapping("/orders/{id}/")
+//    public ModelAndView payOrder(HttpServletRequest request, @PathVariable int id, @RequestParam double amount) {
+//        request.setAttribute("amount", amount);
+//        request.setAttribute("orderId", id);
+//        r
+//    }
 
 }
