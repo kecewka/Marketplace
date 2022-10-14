@@ -1,13 +1,15 @@
 package com.example.marketplace.controller;
 
 import com.example.marketplace.dto.payment.PaymentDto;
+import com.example.marketplace.dto.payment.PaymentPostDto;
+import com.example.marketplace.enums.OrderStatus;
+import com.example.marketplace.enums.PaymentStatus;
 import com.example.marketplace.mapper.payment.PaymentListMapper;
 import com.example.marketplace.mapper.payment.PaymentMapper;
 import com.example.marketplace.service.order.OrderService;
 import com.example.marketplace.service.payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -35,5 +37,23 @@ public class PaymentController {
     @GetMapping("/payments/{id}")
     public PaymentDto getPayment(@PathVariable int id) {
         return paymentMapper.paymentToDto(paymentService.getPaymentById(id));
+    }
+
+    @PostMapping("/payments")
+    public PaymentDto makePayment(@RequestBody PaymentPostDto dto) {
+        paymentService.makePayment(paymentMapper.dtoToPayment(dto));
+        if(dto.getPaymentStatus() == PaymentStatus.APPROVED){
+            orderService.changeOrderStatus(paymentService.getPaymentById(dto.getId())
+                    .getOrder()
+                    .getId(), OrderStatus.PAID
+            );
+        }
+        else{
+            orderService.changeOrderStatus(paymentService.getPaymentById(dto.getId())
+                    .getOrder()
+                    .getId(), OrderStatus.CANCELLED
+            );
+        }
+        return paymentMapper.paymentToDto(paymentService.getPaymentById(dto.getId()));
     }
 }

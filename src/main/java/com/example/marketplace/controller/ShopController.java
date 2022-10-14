@@ -54,12 +54,11 @@ public class ShopController {
 
     @PostMapping("/shops/{id}/orders/{orderId}")
     public OrderDto changeOrderStatus(@PathVariable int id, @PathVariable int orderId, @RequestParam("status") OrderStatus status){
+        orderService.changeOrderStatus(orderId, status);
         if (status == OrderStatus.VERIFIED){
             smsService.sendSms("+77779066364");
         }
-        return orderMapper.orderToDto(orderService.changeOrderStatus(orderId, status));
-
-        //sms service usage
+        return orderMapper.orderToDto(orderService.getOrderById(orderId));
     }
 
 }

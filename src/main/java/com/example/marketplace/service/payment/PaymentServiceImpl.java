@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
 
@@ -28,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService{
     public Payment getPaymentById(int id) {
         Payment payment = null;
         Optional<Payment> optional = paymentRepository.findById(id);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             payment = optional.get();
         }
         return payment;
@@ -42,5 +42,10 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public void cancelPayment(int id) {
         paymentRepository.deleteById(id);
+    }
+
+    @Override
+    public void makePayment(Payment payment) {
+        paymentRepository.makePayment(payment.getId(), payment.getPaymentStatus(), payment.getPaymentTime(), payment.getPaymentType());
     }
 }
