@@ -1,6 +1,7 @@
 package com.example.marketplace.dto.shop;
 
 import com.example.marketplace.dto.productshop.ProductShopDto;
+import com.example.marketplace.dto.user.UserSlimDto;
 
 import java.util.List;
 
@@ -8,15 +9,17 @@ public class ShopDto {
     private int id;
     private String name;
     private String address;
-    private List<ProductShopDto> proudctList;
+    private List<ProductShopDto> productList;
+    private UserSlimDto user;
 
     public ShopDto(){}
 
-    public ShopDto(int id, String name, String address, List<ProductShopDto> proudctList) {
+    public ShopDto(int id, String name, String address, List<ProductShopDto> productList, UserSlimDto user) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.proudctList = proudctList;
+        this.productList = productList;
+        this.user = user;
     }
 
     public int getId() {
@@ -43,12 +46,20 @@ public class ShopDto {
         this.address = address;
     }
 
-    public List<ProductShopDto> getProudctList() {
-        return proudctList;
+    public List<ProductShopDto> getProductList() {
+        return productList;
     }
 
-    public void setProudctList(List<ProductShopDto> proudctList) {
-        this.proudctList = proudctList;
+    public void setProductList(List<ProductShopDto> productList) {
+        this.productList = productList;
+    }
+
+    public UserSlimDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserSlimDto user) {
+        this.user = user;
     }
 
     @Override
@@ -57,7 +68,8 @@ public class ShopDto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", proudctList=" + proudctList +
+                ", productList=" + productList +
+                ", user=" + user +
                 '}';
     }
 }

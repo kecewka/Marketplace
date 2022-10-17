@@ -20,7 +20,7 @@ public class User {
     private String password;
     @Column
     private String phoneNumber;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -29,7 +29,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "user_address"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))

@@ -25,6 +25,10 @@ public class Shop {
     @OneToMany(mappedBy = "shop")
     private List<ProductShop> productList;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Shop(){}
 
     public Shop(int id, String name, String address) {
@@ -33,7 +37,13 @@ public class Shop {
         this.address = address;
     }
 
-
+    public Shop(int id, String name, String address, List<ProductShop> productList, User user) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.productList = productList;
+        this.user = user;
+    }
 
     public int getId() {
         return id;
@@ -57,6 +67,22 @@ public class Shop {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<ProductShop> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<ProductShop> productList) {
+        this.productList = productList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

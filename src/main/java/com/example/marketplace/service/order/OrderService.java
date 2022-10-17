@@ -13,7 +13,6 @@ public interface OrderService {
     void saveOrder(Order order);
     Order cancelOrder(int id);
     List<Order> findOrdersOfShop(int id);
-    Order approveOrder(int shopId, int orderId);
 
     Order changeOrderStatus(int orderId, OrderStatus status);
 }
