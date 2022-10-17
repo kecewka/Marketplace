@@ -43,13 +43,15 @@ public class PaymentController {
     public PaymentDto makePayment(@RequestBody PaymentPostDto dto) {
         paymentService.makePayment(paymentMapper.dtoToPayment(dto));
         if(dto.getPaymentStatus() == PaymentStatus.APPROVED){
-            orderService.changeOrderStatus(paymentService.getPaymentById(dto.getId())
+            orderService.changeOrderStatus(
+                    paymentService.getPaymentById(dto.getId())
                     .getOrder()
                     .getId(), OrderStatus.PAID
             );
         }
         else{
-            orderService.changeOrderStatus(paymentService.getPaymentById(dto.getId())
+            orderService.changeOrderStatus(
+                    paymentService.getPaymentById(dto.getId())
                     .getOrder()
                     .getId(), OrderStatus.CANCELLED
             );

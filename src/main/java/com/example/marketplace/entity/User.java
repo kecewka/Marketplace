@@ -1,4 +1,5 @@
 package com.example.marketplace.entity;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -17,11 +18,12 @@ public class User {
     private String username;
     @Column
     private String password;
-
+    @Column
+    private String phoneNumber;
     @ManyToMany
     @JoinTable(name = "user_role"
-            ,joinColumns = @JoinColumn(name = "user_id")
-            ,inverseJoinColumns = @JoinColumn(name = "role_id"))
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Roles> rolesList;
 
     @OneToMany(mappedBy = "user")
@@ -29,19 +31,21 @@ public class User {
 
     @ManyToMany
     @JoinTable(name = "user_address"
-            ,joinColumns = @JoinColumn(name = "user_id")
-            ,inverseJoinColumns = @JoinColumn(name = "role_id"))
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Address> addressList;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(int id, String username, String password, List<Roles> rolesList, List<Order> orderList, List<Address> addressList) {
+    public User(int id, String username, String password, List<Roles> rolesList, List<Order> orderList, List<Address> addressList, String phoneNumber) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.rolesList = rolesList;
         this.orderList = orderList;
         this.addressList = addressList;
+        this.phoneNumber = phoneNumber;
     }
 
     public int getId() {
@@ -100,6 +104,14 @@ public class User {
         this.addressList = addressList;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -109,6 +121,7 @@ public class User {
                 ", rolesList=" + rolesList +
                 ", orderList=" + orderList +
                 ", addressList=" + addressList +
+                ", phoneNumber=" + phoneNumber +
                 '}';
     }
 }

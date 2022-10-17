@@ -1,42 +1,25 @@
 package com.example.marketplace.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvNumber;
 
-import javax.persistence.*;
 
+public class ProductShop1 {
 
-@Entity
-@Table(name = "product_shop")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ProductShop {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     @CsvBindByPosition(position = 0)
-    @CsvNumber(value = "Integer")
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @CsvNumber(value = "Integer")
     @CsvBindByPosition(position = 1)
-    private Product product;
-    @ManyToOne
-    @JoinColumn(name = "shop_id")
-    @CsvNumber(value = "Integer")
+    private int product;
+
     @CsvBindByPosition(position = 2)
-    private Shop shop;
-    @Column
-    @CsvNumber(value = "Integer")
+    private int shop;
+
     @CsvBindByPosition(position = 3)
     private int amount;
 
-    public ProductShop(){}
+    public ProductShop1(){}
 
-    public ProductShop(int id, Product product, Shop shop, int amount) {
+    public ProductShop1(int id, int product, int shop, int amount) {
         this.id = id;
         this.product = product;
         this.shop = shop;
@@ -51,19 +34,19 @@ public class ProductShop {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public int getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(int product) {
         this.product = product;
     }
 
-    public Shop getShop() {
+    public int getShop() {
         return shop;
     }
 
-    public void setShop(Shop shop) {
+    public void setShop(int shop) {
         this.shop = shop;
     }
 
