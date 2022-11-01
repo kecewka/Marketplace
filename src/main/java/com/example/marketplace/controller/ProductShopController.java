@@ -1,14 +1,16 @@
 package com.example.marketplace.controller;
 
+import com.example.marketplace.dto.exchange.ExchangeRateDTO;
 import com.example.marketplace.dto.productshop.ProductShopDto;
-import com.example.marketplace.entity.ProductShop;
 import com.example.marketplace.entity.ProductShop1;
 import com.example.marketplace.mapper.productshop.ProductShopListMapper;
 import com.example.marketplace.mapper.productshop.ProductShopMapper;
 import com.example.marketplace.service.productshop.ProductShopService;
+import com.example.marketplace.service.scrapper.ScrapperService;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,12 +26,14 @@ public class ProductShopController {
     private final ProductShopService productShopService;
     private final ProductShopMapper productShopMapper;
     private final ProductShopListMapper productShopListMapper;
+    private final ScrapperService scrapperService;
 
     @Autowired
-    public ProductShopController(ProductShopService productShopService, ProductShopMapper productShopMapper, ProductShopListMapper productShopListMapper) {
+    public ProductShopController(ProductShopService productShopService, ProductShopMapper productShopMapper, ProductShopListMapper productShopListMapper, ScrapperService scrapperService) {
         this.productShopService = productShopService;
         this.productShopMapper = productShopMapper;
         this.productShopListMapper = productShopListMapper;
+        this.scrapperService = scrapperService;
     }
 
     @GetMapping("/shops/{id}")
@@ -65,8 +69,5 @@ public class ProductShopController {
         return "success";
     }
 
-    @GetMapping("/")
-    public ProductShop asd() {
-        return productShopService.getBy(1, 5);
-    }
+
 }
