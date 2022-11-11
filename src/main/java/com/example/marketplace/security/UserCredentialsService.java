@@ -22,9 +22,9 @@ public class UserCredentialsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user =userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
 
-        if(!user.isPresent()) {
+        if (!user.isPresent()) {
             throw new UsernameNotFoundException("User not found");
         }
 
