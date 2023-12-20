@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the SonarQube server credentials ID
-        SONAR_TOKEN = credentials('sq1')
+        SONAR_TOKEN = credentials('sonarqube')
         TOMCAT_CREDENTIALS = credentials('tomcat')
     }
 
