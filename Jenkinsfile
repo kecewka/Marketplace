@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        // Define the SonarQube server credentials ID
+        SONAR_TOKEN = credentials('sonarqube')
+        TOMCAT_CREDENTIALS = credentials('tomcat')
+    }
 
     stages {
         stage('Checkout') {
@@ -12,7 +17,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Build your project using Maven
+                // Build your project using Maven or other build tool
                 sh 'mvn clean package'
             }
         }
@@ -25,10 +30,6 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                // Define SonarQube server credentials from Jenkins credentials store
-                SONAR_TOKEN = credentials('sonarqube')
-            }
             steps {
                 // Run SonarQube analysis using SonarScanner
                 withSonarQubeEnv('SonarQube_Server') {
@@ -40,9 +41,9 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 // Deploy to Tomcat using Deploy to Container plugin
-                // Replace TOMCAT_URL with your Tomcat server URL
-                // Adjust WAR file path and other configurations as needed
-                sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/your-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true'
+                withCredentials([usernamePassword(credentialsId: TOMCAT_CREDENTIALS, passwordVariable: 'TOMCAT_PASSWORD', usernameVariable: 'TOMCAT_USERNAME')]) {
+                    sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/your-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true -Dtomcat.username=$TOMCAT_USERNAME -Dtomcat.password=$TOMCAT_PASSWORD'
+                }
             }
         }
     }
