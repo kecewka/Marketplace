@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the SonarQube server credentials ID
-        SONAR_TOKEN = credentials('sonarqube')
+        SONAR_TOKEN = credentials('sq1')
         TOMCAT_CREDENTIALS = credentials('tomcat')
     }
 
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 // Deploy to Tomcat using Deploy to Container plugin
                 withCredentials([usernamePassword(credentialsId: TOMCAT_CREDENTIALS, passwordVariable: 'TOMCAT_PASSWORD', usernameVariable: 'TOMCAT_USERNAME')]) {
-                    sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/your-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true -Dtomcat.username=$TOMCAT_USERNAME -Dtomcat.password=$TOMCAT_PASSWORD'
+                    sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/marketplace-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true -Dtomcat.username=$TOMCAT_USERNAME -Dtomcat.password=$TOMCAT_PASSWORD'
                 }
             }
         }
