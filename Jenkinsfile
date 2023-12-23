@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        /*stage('Build') {
+        stage('Build') {
             steps {
                 bat 'mvn clean install'
             }
@@ -28,7 +28,7 @@ pipeline {
                     bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b0f7e155e403a19ffa3d631f40c8dcff88386aa0'
                 }
             }
-        }*/
+        }
 
         stage ('Archive Artifacts'){
             steps {
