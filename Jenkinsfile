@@ -45,15 +45,3 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-            // Perform actions when the pipeline succeeds
-            echo 'Deployment successful!'
-        }
-        failure {
-            // Perform actions when the pipeline fails
-            echo 'Deployment failed!'
-        }
-    }
-
