@@ -31,7 +31,9 @@ pipeline {
         }
 
         stage ('Archive Artifacts'){
-            archiveArtifacts artifacts: 'target/*.war'
+            steps {
+                archiveArtifacts artifacts: 'target/*.war'
+            }
         }
         
         stage('Deploy to Tomcat') {
