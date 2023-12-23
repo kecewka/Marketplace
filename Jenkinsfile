@@ -13,13 +13,13 @@ pipeline {
             steps {
                 bat 'mvn clean install'
             }
-        }*/
+        }
         
         stage('Unit Tests') {
             steps {
                 bat 'mvn test'
             }
-        }
+        }*/
 
         stage('SonarQube Analysis') {
             steps {
