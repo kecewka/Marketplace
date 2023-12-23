@@ -9,11 +9,11 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        /*stage('Build') {
             steps {
                 bat 'mvn clean install'
             }
-        }
+        }*/
         
         stage('Unit Tests') {
             steps {
