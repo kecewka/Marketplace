@@ -17,7 +17,7 @@ pipeline {
 /*
         stage('Unit Tests') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube_Server') {
                     //я понимаю что не стоит сюда ставить apikey
-                    sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b0f7e155e403a19ffa3d631f40c8dcff88386aa0'
+                    bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b0f7e155e403a19ffa3d631f40c8dcff88386aa0'
                 }
             }
         }
