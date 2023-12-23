@@ -14,7 +14,7 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
-/*
+        
         stage('Unit Tests') {
             steps {
                 bat 'mvn test'
@@ -41,7 +41,7 @@ pipeline {
                     //sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/marketplace-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true -Dtomcat.username=$TOMCAT_USERNAME -Dtomcat.password=$TOMCAT_PASSWORD'
                 deploy adapters: [tomcat10(credentialsId: 'tomcat', path: '', url: 'http://localhost:8101/')], contextPath: 'app', war: 'target/*.war'
                 }
-            }*/
+            }
         }
     }
 
