@@ -23,7 +23,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonarqube1') {
                     //я понимаю что не стоит сюда ставить apikey
                     bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b0f7e155e403a19ffa3d631f40c8dcff88386aa0'
                 }
