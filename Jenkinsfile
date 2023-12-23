@@ -32,6 +32,7 @@ pipeline {
 
         stage ('Archive Artifacts'){
             steps {
+                echo %CD%
                 archiveArtifacts artifacts: 'target/*.war'
             }
         }
