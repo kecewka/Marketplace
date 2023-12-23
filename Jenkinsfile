@@ -1,48 +1,43 @@
 pipeline {
     agent any
 
-    environment {
-        // Define the SonarQube server credentials ID
-        SONAR_TOKEN = credentials('sonarqube')
-        TOMCAT_CREDENTIALS = credentials('tomcat')
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                git branch: 'main', url: 'https://github.com/kecewka/Marketplace.git'
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                // Build your project using Maven or other build tool
-                sh 'mvn clean package'
+                sh 'mvn clean install'
             }
         }
 
         stage('Unit Tests') {
             steps {
-                // Run unit tests
                 sh 'mvn test'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                // Run SonarQube analysis using SonarScanner
                 withSonarQubeEnv('SonarQube_Server') {
-                    sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                    //я понимаю что не стоит сюда ставить apikey
+                    sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b0f7e155e403a19ffa3d631f40c8dcff88386aa0'
                 }
             }
         }
 
+        stage ('Archive Artifacts'){
+            archiveArtifacts artifacts: 'target/*.war'
+        }
+        
         stage('Deploy to Tomcat') {
             steps {
-                // Deploy to Tomcat using Deploy to Container plugin
-                withCredentials([usernamePassword(credentialsId: TOMCAT_CREDENTIALS, passwordVariable: 'TOMCAT_PASSWORD', usernameVariable: 'TOMCAT_USERNAME')]) {
-                    sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/marketplace-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true -Dtomcat.username=$TOMCAT_USERNAME -Dtomcat.password=$TOMCAT_PASSWORD'
+                    //sh 'mvn deploy:deploy-file -Durl=http://localhost:8101/manager/text -DrepositoryId=tomcat -Dfile=target/marketplace-app.war -DgroupId=your.groupId -DartifactId=your-artifactId -Dversion=1.0 -Dpackaging=war -DgeneratePom=true -Dtomcat.username=$TOMCAT_USERNAME -Dtomcat.password=$TOMCAT_PASSWORD'
+                deploy adapters: [tomcat10(credentialsId: 'tomcat', path: '', url: 'http://localhost:8101/')], contextPath: 'app', war: 'target/*.war'
                 }
             }
         }
